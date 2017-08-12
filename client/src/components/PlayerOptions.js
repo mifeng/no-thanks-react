@@ -14,7 +14,7 @@ class PlayerOptions extends Component {
 
   joinGame() {
     console.log(window.location.host);
-    const socket = new WebSocket(`wss://${window.location.host}/socket/`);
+    const socket = new WebSocket(`ws://${window.location.host}/socket/`);
     socket.onopen = () => {
       const msg = `${this.props.currentUser.username} joined game`;
       socket.send(JSON.stringify({ event: msg }));
