@@ -6,4 +6,4 @@ staticfiles
 # node
 node_modules
 yarn.lock
-# static/dist
+static/dist
