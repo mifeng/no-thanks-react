@@ -19,7 +19,7 @@
     "react-redux": "^5.0.5",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2",
-    "webpack": "^3.4.1",
+    "webpack": "^3.4.1"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
