@@ -22,10 +22,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
     'channels',
+    'whitenoise.runserver_nostatic',
     'no_thanks',
 ]
 
