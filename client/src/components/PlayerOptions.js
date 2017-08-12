@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { bindActionCreators } from 'redux';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateGame } from '../actions';
+import { incrementIndex } from '../actions';
 
 class PlayerOptions extends Component {
   constructor(props) {
@@ -13,7 +14,6 @@ class PlayerOptions extends Component {
   }
 
   joinGame() {
-    console.log(window.location.host);
     const socket = new WebSocket(`ws://${window.location.host}/socket/`);
     socket.onopen = () => {
       const msg = `${this.props.currentUser.username} joined game`;
@@ -28,12 +28,12 @@ class PlayerOptions extends Component {
   }
 
   takeCard() {
-    axios.post('/api/takeCard/')
-    .then((res) => {
-      console.log(`${window.user} took card; data: ${res.data}`);
-      this.setState({ coinTotal: this.state.coinTotal + 1 });
-    })
-    .catch((err) => { console.log(err); });
+    this.props.incrementIndex();
+    const socket = new WebSocket(`ws://${window.location.host}/socket/`);
+    socket.onopen = () => {
+      const msg = `${this.props.currentUser.username} took card`;
+      socket.send(JSON.stringify({ event: msg }));
+    };
   }
 
   skipCard() {
@@ -50,7 +50,8 @@ class PlayerOptions extends Component {
   startNewGame() {
     axios.get('/api/createNewGame/')
     .then((res) => {
-      this.setState({ waiting: true, game: res.data.game, playerNumber: res.data.playerNumber });
+      console.log(res.data.data);
+      this.props.updateGame(res.data);
     })
     .catch((err) => { console.log(err); });
   }
@@ -95,4 +96,11 @@ const mapStateToProps = (state) => {
   return { currentUser: main.currentUser, gameSocket: main.gameSocket, game };
 };
 
-export default connect(mapStateToProps)(PlayerOptions);
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    incrementIndex,
+  }, dispatch);
+};
+
+
+export default connect(mapStateToProps, matchDispatchToProps)(PlayerOptions);

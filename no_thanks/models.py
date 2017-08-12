@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 from channels import Group
+import random
 
 # Create your models here.
 class Game(models.Model):
@@ -11,6 +12,7 @@ class Game(models.Model):
         ('C', 'Complete'),
     )
     status = models.CharField(max_length=30, choices=GAME_STATUS, default='W')
+    deck = models.CharField(max_length=100, null=True)
     creator = models.ForeignKey(User, related_name='creator', null=True)
     winner = models.ForeignKey(User, related_name='winner', null=True, blank=True)
     current_turn = models.ForeignKey(User, related_name="games_current_turn", null=True)
@@ -27,7 +29,10 @@ class Game(models.Model):
 
     @staticmethod
     def create_new(user):
-        new_game = Game(creator=user, current_turn=user, first_player=user)
+        base_arr = list(range(1, 35))
+        random.shuffle(base_arr)
+        deck = str(base_arr[:27])
+        new_game = Game(creator=user, current_turn=user, first_player=user, deck=deck)
         new_game.save()
         # new_game.add_log('Game created by {0}'.format(new_game.creator.username))
         return new_game

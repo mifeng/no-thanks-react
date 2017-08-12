@@ -5,12 +5,12 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'groups', 'first_name')
+        fields = ('id', 'username', 'email')
 
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'status','current_turn',
+        fields = ('id', 'status','current_turn', 'deck',
         'first_player','second_player','third_player','fourth_player','fifth_player')
         depth = 1
 

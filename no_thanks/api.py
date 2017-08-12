@@ -14,6 +14,7 @@ from .models import Game, Move
 def new_deck(request):
     base_arr = list(range(1, 35))
     random.shuffle(base_arr)
+    print(str(base_arr[:27]))
     return JsonResponse({'deck': base_arr[:27]})
 
 # def active_users(request):
@@ -54,4 +55,4 @@ def fetch_game(request):
 def create_game(request):
     Group("socket").send({ "text": '{"event":"new game started","trigger":"fetchGame"}' })
     serializer = GameSerializer(Game.create_new(request.user))
-    return JsonResponse({'game': serializer.data, 'playerNumber': 1})
+    return JsonResponse({'game': serializer.data, 'playerNumber': 1 })

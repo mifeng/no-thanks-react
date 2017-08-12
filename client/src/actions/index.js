@@ -12,3 +12,9 @@ export const updateGame = (game, playerNumber) => {
     playerNumber,
   };
 };
+
+export const incrementIndex = () => {
+  return {
+    type: 'INCREMENT_INDEX',
+  };
+};
