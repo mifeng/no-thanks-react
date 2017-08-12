@@ -19,8 +19,7 @@
     "react-redux": "^5.0.5",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2",
-    "semantic-ui-css": "^2.2.11",
-    "semantic-ui-react": "^0.71.3"
+    "webpack": "^3.4.1",
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -37,8 +36,6 @@
     "eslint-plugin-react": "^7.1.0",
     "html-webpack-plugin": "^2.29.0",
     "style-loader": "^0.18.2",
-    "webpack": "^3.4.1",
-    "webpack-cleanup-plugin": "^0.5.1",
     "webpack-dev-server": "^2.5.1"
   }
 }
