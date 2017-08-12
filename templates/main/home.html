@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <img alt="no-thanks" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/No_Thanks%21.jpg" />
+    <h1>No Thanks</h1>
+    {% if user.is_authenticated %}
+      <p>Hi, {{ user.username }} </p>
+      <a href="/game">Go to Game =></a>
+    {% else %}
+      <p> Welcome to No Thanks </p>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Sign Up</a></li>
+    {% endif %}
+  </body>
+</html>

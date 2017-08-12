@@ -1,0 +1,17 @@
+<html>
+  <head></head>
+  <body>
+    <h1>please login</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <!-- <b>Email:</b>
+      <input name="email" type="text"/>
+      <br />
+      <b>Password:</b>
+      <input name="password" type="password"/> -->
+      <button type="submit">Login</button>
+    </form>
+  </form>
+  </body>
+</html>

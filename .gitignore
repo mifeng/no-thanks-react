@@ -2,3 +2,8 @@ venv
 *.pyc
 staticfiles
 .env
+
+# node
+node_modules
+yarn.lock
+static/dist
