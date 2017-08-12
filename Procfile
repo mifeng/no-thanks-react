@@ -1,1 +1,1 @@
-web: npm install && gunicorn noThanksApp.wsgi --log-file -
+web: gunicorn noThanksApp.wsgi --log-file -
