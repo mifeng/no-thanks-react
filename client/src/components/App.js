@@ -19,7 +19,7 @@ class App extends Component {
     axios.get('/api/getCurrentUser')
     .then((res) => { this.props.updateUser(res.data); })
     .then(() => {
-      const socket = new WebSocket(`ws://${window.location.host}/socket/`);
+      const socket = new WebSocket(`wss://${window.location.host}/socket/`);
       socket.onmessage = (e) => { this.listenFor(JSON.parse(e.data)); };
       socket.onopen = () => {
         const msg = `${this.props.currentUser.username} logged in`;
