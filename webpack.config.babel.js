@@ -29,16 +29,16 @@ const config = {
       },
     ],
   },
-  devtool: 'eval-source-map',
-  devServer: {
-    contentBase: path.join(__dirname, 'static'),
-    port: 1337,
-    overlay: {
-      warnings: true,
-      errors: true,
-    },
-    hot: true,
-  },
+  // devtool: 'eval-source-map',
+  // devServer: {
+  //   contentBase: path.join(__dirname, 'static'),
+  //   port: 1337,
+  //   overlay: {
+  //     warnings: true,
+  //     errors: true,
+  //   },
+  //   hot: true,
+  // },
 };
 
 export default config;
