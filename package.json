@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "py3": "python3 manage.py runserver",
+    "py2": "python manage.py runserver",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --watch",
     "postinstall": "webpack"
