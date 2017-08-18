@@ -11,22 +11,6 @@ import random, json
 
 from .models import Game, Move
 
-def new_deck(request):
-    base_arr = list(range(1, 35))
-    random.shuffle(base_arr)
-    print(str(base_arr[:27]))
-    return JsonResponse({'deck': base_arr[:27]})
-
-# def active_users(request):
-#     sessions = Session.objects.filter(expire_date__gte=timezone.now())
-#     uid_list = []
-#
-#     for session in sessions:
-#         data = session.get_decoded()
-#         uid_list.append(data.get('_auth_user_id', None))
-#
-#     return JsonResponse({'data': User.objects.filter(id__in=uid_list)})
-
 def current_user(request):
     serializer = UserSerializer(request.user)
     return JsonResponse(serializer.data)
