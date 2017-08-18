@@ -17,14 +17,3 @@ class GameSerializer(serializers.ModelSerializer):
 class MoveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Move
-
-# class GameSquareSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = GameSquare
-#         fields = ('id', 'game', 'owner', 'status', 'row', 'col')
-#
-# class GameLogSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = GameLog
-#         fields = ('id', 'text', 'player', 'created')
-#         depth = 1
