@@ -25610,7 +25610,7 @@ var App = function (_Component) {
       _axios2.default.get('/api/getCurrentUser').then(function (res) {
         _this2.props.updateUser(res.data);
       }).then(function () {
-        var socket = new WebSocket('wss://' + window.location.host + '/socket/');
+        var socket = new WebSocket('ws://' + window.location.host + '/socket/');
         socket.onmessage = function (e) {
           _this2.listenFor(JSON.parse(e.data));
         };
@@ -26898,7 +26898,7 @@ var PlayerOptions = function (_Component) {
       var _this2 = this;
 
       console.log(window.location.host);
-      var socket = new WebSocket('wss://' + window.location.host + '/socket/');
+      var socket = new WebSocket('ws://' + window.location.host + '/socket/');
       socket.onopen = function () {
         var msg = _this2.props.currentUser.username + ' joined game';
         socket.send(JSON.stringify({ event: msg }));
