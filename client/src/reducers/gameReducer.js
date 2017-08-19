@@ -1,15 +1,23 @@
 const initialState = {
-  game: null,
-  playerNumber: null,
-  index: 0,
+  cards: [],
+  coins: [],
+  players: [],
+  currentPlayer: '',
+  currentCard: 0,
+  centerCoinCount: 0,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'UPDATE_GAME':
-      return Object.assign({}, state, { game: action.game });
-    case 'INCREMENT_INDEX':
-      return Object.assign({}, state, { index: state.index + 1 });
+    case 'UPDATE_CARDS':
+      return Object.assign({}, state, {
+        cards: action.data.cards,
+        coins: action.data.coins,
+        currentPlayer: action.data.current_player,
+        currentCard: action.data.current_card,
+        centerCoinCount: action.data.center_coin_count,
+        players: action.data.players,
+      });
     default:
       return state;
   }

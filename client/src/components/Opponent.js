@@ -2,25 +2,26 @@ import React, { Component } from 'react';
 
 class Opponent extends Component {
   render() {
-    // if (this.props.game.game && this.props.game.game.status === 'A') {
+    const { pn, game } = this.props;
+    if (game.players) {
       return (
         <div className="opponent-container">
-          <h4>{this.props.username}</h4>
+          <h4>{game.players[pn]}</h4>
           <b>current #:</b> 0 <br />
           <b>current card total:</b> 100 <br />
           <b>current score:</b> 100 <br />
         </div>
       );
-    // } else {
-    //   return (
-    //     <div className="opponent-container">
-    //       <h4>loading...</h4>
-    //       <b>current #:</b> 0 <br />
-    //       <b>current card total:</b> 100 <br />
-    //       <b>current score:</b> 100 <br />
-    //     </div>
-    //   );
-    // }
+    } else {
+      return (
+        <div className="opponent-container">
+          <h4>Loading...</h4>
+          <b>current #:</b> 0 <br />
+          <b>current card total:</b> 100 <br />
+          <b>current score:</b> 100 <br />
+        </div>
+      );
+    }
   }
 }
 

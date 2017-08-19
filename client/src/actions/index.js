@@ -5,16 +5,16 @@ export const updateUser = (user) => {
   };
 };
 
-export const updateGame = (game, playerNumber) => {
+export const updateGame = (game) => {
   return {
     type: 'UPDATE_GAME',
     game,
-    playerNumber,
   };
 };
 
-export const incrementIndex = () => {
+export const updateCards = (data) => {
   return {
-    type: 'INCREMENT_INDEX',
+    type: 'UPDATE_CARDS',
+    data,
   };
 };

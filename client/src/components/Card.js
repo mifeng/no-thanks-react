@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateUser, updateGame } from '../actions';
+import { updateCards } from '../actions';
 
 class Card extends Component {
   render() {
-    const { game, index } = this.props.game;
-    if (game && game.status === 'A') {
+    const { game, gameInfo } = this.props;
+    if (gameInfo && gameInfo.status === 'A') {
       return (
         <div className="card-container">
-          {JSON.parse(game.deck)[index]}
+          {game.currentCard}
         </div>
       );
     } else {
@@ -24,12 +24,12 @@ class Card extends Component {
 
 const mapStateToProps = (state) => {
   const { main, game } = state;
-  return { currentUser: main.currentUser, gameSocket: main.gameSocket, game };
+  return { gameInfo: main.game, game };
 };
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    updateUser, updateGame,
+    updateCards,
   }, dispatch);
 };
 

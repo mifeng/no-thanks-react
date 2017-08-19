@@ -6,12 +6,13 @@ import { connect } from 'react-redux';
 // sub components
 import Chatbox from './Chatbox';
 import GameView from './GameView';
-import { updateUser, updateGame } from '../actions';
+import { updateUser, updateGame, updateCards } from '../actions';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.fetchGame = this.fetchGame.bind(this);
+    this.fetchCards = this.fetchCards.bind(this);
     this.listenFor = this.listenFor.bind(this);
   }
 
@@ -38,8 +39,17 @@ class App extends Component {
 
   fetchGame() {
     axios.get('/api/fetchGame/')
-    .then((res) => { this.props.updateGame(res.data.game); })
+    .then((res) => {
+      this.props.updateGame(res.data.game);
+      if (res.data.game && res.data.game.status === 'A') this.fetchCards();
+    })
     .catch((err) => { console.warn(err, 'fetch game error'); });
+  }
+
+  fetchCards() {
+    axios.get('/api/fetchCards/')
+    .then((res) => { this.props.updateCards(res.data); })
+    .catch((err) => { console.warn(err, 'fetch cards error'); });
   }
 
   render() {
@@ -58,13 +68,13 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { main, game } = state;
-  return { currentUser: main.currentUser, gameSocket: main.gameSocket, game };
+  const { main } = state;
+  return { currentUser: main.currentUser, gameInfo: main.game };
 };
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    updateUser, updateGame,
+    updateUser, updateGame, updateCards,
   }, dispatch);
 };
 
