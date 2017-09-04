@@ -61,7 +61,6 @@ def switch_turn():
         current_player_index = 0
     else:
         current_player_index += 1
-    print current_player_index
 
 def format_response():
     global cards
