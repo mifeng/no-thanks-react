@@ -11,9 +11,9 @@ from .models import Game
 import random, json
 
 players = []
-base_arr = list(range(1, 35))
+base_arr = list(range(3, 35))
 random.shuffle(base_arr)
-deck = base_arr[:27]
+deck = base_arr[:26]
 current_card_index = 0
 current_player_index = 0
 cards = [[],[],[],[],[]]
@@ -80,6 +80,22 @@ def format_response():
         "current_player": players[current_player_index],
     })
 
+def end_game():
+    g = Game.objects.filter(status='A')[0]
+    scores = [0, 0, 0, 0, 0]
+    for i in range(5):
+        card_arr = cards[i]
+        if len(card_arr) > 0:
+            scores[i] = card_arr[0]
+            for j in range(1, len(card_arr)):
+                if card_arr[j] - card_arr[j - 1] != 1:
+                    scores[i] += card_arr[j]
+        scores[i] -= coins[i]
+    winner_index = scores.index(min(scores))
+    winner = User.objects.filter(username=players[winner_index])[0]
+    Game.mark_complete(g, winner)
+    return players[winner_index]
+
 def take_card(request):
     global cards
     global coins
@@ -90,13 +106,27 @@ def take_card(request):
     global center_coin_count
     i = players.index(request.user.username)
     cards[i].append(deck[current_card_index])
+    cards[i].sort()
     coins[i] += center_coin_count
     center_coin_count = 0
-    current_card_index += 1
-    current_card = deck[current_card_index]
-    switch_turn()
-    print current_player_index
-    Group("socket").send({ "text": '{"event": "took card","trigger":"fetchCards"}' })
+    if current_card_index == 25:
+        winner = end_game()
+
+        players = []
+        base_arr = list(range(3, 35))
+        random.shuffle(base_arr)
+        deck = base_arr[:26]
+        current_card_index = 0
+        current_player_index = 0
+        cards = [[],[],[],[],[]]
+        coins = [9,9,9,9,9]
+        center_coin_count = 0
+
+        Group("socket").send({ "text": '{"event": "game over","trigger":"endGame","args":"' + winner +'"}' })
+    else:
+        current_card_index += 1
+        current_card = deck[current_card_index]
+        Group("socket").send({ "text": '{"event": "' + request.user.username + ' took card","trigger":"fetchCards"}' })
     return JsonResponse({ "data": None })
 
 def skip_card(request):
@@ -107,7 +137,7 @@ def skip_card(request):
     coins[i] -= 1
     center_coin_count += 1
     switch_turn()
-    Group("socket").send({ "text": '{"event": "skipped card","trigger":"fetchCards"}' })
+    Group("socket").send({ "text": '{"event": "' + request.user.username + ' skipped card","trigger":"fetchCards"}' })
     return JsonResponse({ "data": None })
 
 def fetch_cards(request):

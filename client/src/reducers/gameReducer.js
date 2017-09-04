@@ -1,7 +1,7 @@
 const initialState = {
-  cards: [],
-  coins: [],
-  players: [],
+  cards: [[], [], [], [], []],
+  coins: [[], [], [], [], []],
+  players: null,
   currentPlayer: '',
   currentCard: 0,
   centerCoinCount: 0,
@@ -18,6 +18,8 @@ export default (state = initialState, action) => {
         centerCoinCount: action.data.center_coin_count,
         players: action.data.players,
       });
+    case 'RESET_GAME':
+      return initialState;
     default:
       return state;
   }

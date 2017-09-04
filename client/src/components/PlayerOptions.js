@@ -32,9 +32,13 @@ class PlayerOptions extends Component {
   }
 
   render() {
-    const { gameInfo, currentUser } = this.props;
-    const takeCard = () => { axios.get('/api/takeCard/'); console.log(this.props.game.cards); };
+    const { gameInfo, currentUser, game } = this.props;
+    const takeCard = () => { axios.get('/api/takeCard/'); };
     const skipCard = () => { axios.get('/api/skipCard/'); };
+    let playerNum = 0;
+    if (this.props.game && this.props.game.players && this.props.currentUser) {
+      playerNum = this.props.game.players.indexOf(this.props.currentUser.username);
+    }
 
     if (!currentUser) {
       return (<div className="player-options-container"> loading...</div>);
@@ -54,17 +58,29 @@ class PlayerOptions extends Component {
         </div>
       );
     }
+    const myTurn = game.currentPlayer === currentUser.username;
+    const highlightCtrl = (myTurn ? 'highlighted-player' : 'none');
     return (
-      <div className="player-options-container">
+      <div className="player-options-container" id={highlightCtrl}>
         <h4>{currentUser.username}</h4>
-        <button onClick={takeCard}>Sweet Spot... I will take it!</button>
-        <button onClick={skipCard}>No thanks~</button> <br />
-        <b>current #:</b> 0 <br />
-        <b>current card total:</b> 100 <br />
-        <b>current score:</b> 100 <br />
-        {this.props.game.cards.map((num, i) => (
-          <div key={i}>{num}</div>
-        ))}
+        <button
+          disabled={!myTurn}
+          onClick={takeCard}
+        >
+          {game.coins[playerNum] <= 0 ? 'I have to take it' : 'Sweet Spot... I will take it!'}
+        </button>
+        <button
+          onClick={skipCard}
+          disabled={!myTurn || game.coins[playerNum] <= 0}
+        >
+          No thanks~
+        </button> <br />
+        <b>current coins:</b> {game.coins[playerNum]} <br />
+        <div className="small-cards-container">
+          {game.cards[playerNum].map((num, i) => (
+            <div className="small-card" key={i}>{num}</div>
+          ))}
+        </div>
       </div>
     );
   }

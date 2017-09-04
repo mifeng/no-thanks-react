@@ -11,23 +11,64 @@ body {
 
 .game-view-container {
   background-color: #222;
-  height: 750px;
-  width: 75%;
-  margin: 1%;
+  /*height: 650px;*/
+  width: 80%;
 }
 
 .chatbox-container {
-  background-color: #231231;
+  background-color: #111222;
   width: 20%;
-  margin: 1%;
 }
 
 .player-options-container {
   border: 1px solid #fff;
   margin: 2% auto 2% auto;
+  width: 80%;
+  padding: 2%;
+}
+
+.small-cards-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  width: 100%;
+  height: 70px;
+}
+
+.small-card {
+  border-radius: 5px;
+  margin: 0 3px 0 3px;
+  height: 50px;
+  width: 45px;
+  color: green;
+  background-color: pink;
+  font-size: 20px;
+  text-align: center;
+}
+
+button {
+  background-color: blue;
+}
+
+#row-1, #row-2 {
+  display: flex;
+  flex-direction: row;
+}
+
+.opponent {
+  margin: 1% auto 1% auto;
   width: 35%;
   padding: 2%;
-  /*margin: 2%;*/
+}
+
+.opponent-container {
+  border: 1px solid #fff;
+  width: 100%;
+  padding: 3%;
+}
+
+#highlighted-player {
+  border: 3px solid yellow;
 }
 
 .card-container {
@@ -42,23 +83,17 @@ body {
   text-align: center;
 }
 
-button {
-  background-color: blue;
+.coins-container {
+  /*background-color: white;*/
+  width: 100px;
+  height: 70px;
+  z-index: 2
 }
 
-#row-1, #row-2 {
-  display: flex;
-  flex-direction: row;
-}
-
-.opponent {
-  margin: 2% auto 2% auto;
-  width: 35%;
-  padding: 2%;
-}
-
-.opponent-container {
-  border: 1px solid #fff;
-  width: 100%;
-  padding: 5%;
+.coin {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: red;
+  z-index: 3;
 }

@@ -6,11 +6,12 @@ import { connect } from 'react-redux';
 // sub components
 import Chatbox from './Chatbox';
 import GameView from './GameView';
-import { updateUser, updateGame, updateCards } from '../actions';
+import { updateUser, updateGame, updateCards, resetGame } from '../actions';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.endGame = this.endGame.bind(this);
     this.fetchGame = this.fetchGame.bind(this);
     this.fetchCards = this.fetchCards.bind(this);
     this.listenFor = this.listenFor.bind(this);
@@ -33,8 +34,14 @@ class App extends Component {
   }
 
   listenFor(data) {
-    if (data.trigger) { this[data.trigger](); }
+    if (data.trigger) { this[data.trigger](data.args); }
     if (data.event) { console.log(data.event); }
+  }
+
+  endGame(winner) {
+    alert(`game over! The winner is ${winner}`);
+    this.fetchGame();
+    this.props.resetGame();
   }
 
   fetchGame() {
@@ -74,7 +81,7 @@ const mapStateToProps = (state) => {
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    updateUser, updateGame, updateCards,
+    updateUser, updateGame, updateCards, resetGame,
   }, dispatch);
 };
 

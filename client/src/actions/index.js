@@ -18,3 +18,9 @@ export const updateCards = (data) => {
     data,
   };
 };
+
+export const resetGame = () => {
+  return {
+    type: 'RESET_GAME',
+  };
+};

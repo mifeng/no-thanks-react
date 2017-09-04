@@ -63,5 +63,6 @@ class Game(models.Model):
 
     def mark_complete(self, winner):
         self.winner = winner
-        self.completed = datetime.now()
+        self.status = 'C'
+        self.current_turn = None
         self.save()
