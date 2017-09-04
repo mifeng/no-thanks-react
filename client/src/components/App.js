@@ -21,7 +21,9 @@ class App extends Component {
     axios.get('/api/getCurrentUser')
     .then((res) => { this.props.updateUser(res.data); })
     .then(() => {
-      const socket = new WebSocket(`ws://${window.location.host}/socket/`);
+      const wsScheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
+      const socket = new ReconnectingWebSocket(`${wsScheme}://${window.location.host}/chat${window.location.pathname}`);
+      // const socket = new WebSocket(`ws://${window.location.host}/socket/`);
       socket.onmessage = (e) => { this.listenFor(JSON.parse(e.data)); };
       socket.onopen = () => {
         const msg = `${this.props.currentUser.username} logged in`;

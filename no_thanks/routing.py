@@ -6,3 +6,5 @@ channel_routing = [
     route("websocket.receive", ws_message),
     route("websocket.disconnect", ws_disconnect),
 ]
+
+# channel_routing = {}
