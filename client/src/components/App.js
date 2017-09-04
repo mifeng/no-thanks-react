@@ -24,12 +24,14 @@ class App extends Component {
     .then(() => {
       const wsScheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
       const socket = new ReconnectingWebSocket(`${wsScheme}://${window.location.host}${window.location.pathname}`);
+      socket.debug = true;
+      socket.timeoutInterval = 5400;
       // const socket = new WebSocket(`ws://${window.location.host}/socket/`);
-      socket.onmessage = (e) => { this.listenFor(JSON.parse(e.data)); };
       socket.onopen = () => {
         const msg = `${this.props.currentUser.username} logged in`;
         socket.send(JSON.stringify({ event: msg }));
       };
+      socket.onmessage = (e) => { this.listenFor(JSON.parse(e.data)); };
       if (socket.readyState === WebSocket.OPEN) socket.onopen();
       this.fetchGame();
     })
