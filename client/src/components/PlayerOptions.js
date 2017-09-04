@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ReconnectingWebSocket from 'reconnectingwebsocket';
 import { updateCards, updateGame } from '../actions';
 
 class PlayerOptions extends Component {
@@ -12,7 +13,8 @@ class PlayerOptions extends Component {
   }
 
   joinGame() {
-    const socket = new WebSocket(`ws://${window.location.host}/socket/`);
+    const wsScheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    const socket = new ReconnectingWebSocket(`${wsScheme}://${window.location.host}/chat${window.location.pathname}`);
     socket.onopen = () => {
       const msg = `${this.props.currentUser.username} joined game`;
       socket.send(JSON.stringify({ event: msg }));
