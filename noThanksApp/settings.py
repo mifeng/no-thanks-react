@@ -142,7 +142,7 @@ CHANNEL_LAYERS = {
 
 # disable for production
 CACHES = {
-    'default': {
+    'default': { 
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     },
 }
