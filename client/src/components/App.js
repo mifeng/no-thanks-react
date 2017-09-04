@@ -23,7 +23,7 @@ class App extends Component {
     .then((res) => { this.props.updateUser(res.data); })
     .then(() => {
       const wsScheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
-      const socket = new ReconnectingWebSocket(`${wsScheme}://${window.location.host}${window.location.pathname}websocket`);
+      const socket = new ReconnectingWebSocket(`${wsScheme}://${window.location.host}/socket`);
       socket.debug = true;
       socket.timeoutInterval = 5400;
       // const socket = new WebSocket(`ws://${window.location.host}/socket/`);
