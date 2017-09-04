@@ -23,7 +23,7 @@ class App extends Component {
     .then((res) => { this.props.updateUser(res.data); })
     .then(() => {
       const wsScheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
-      const socket = new ReconnectingWebSocket(`${wsScheme}://${window.location.host}/chat${window.location.pathname}`);
+      const socket = new ReconnectingWebSocket(`${wsScheme}://${window.location.host}${window.location.pathname}`);
       // const socket = new WebSocket(`ws://${window.location.host}/socket/`);
       socket.onmessage = (e) => { this.listenFor(JSON.parse(e.data)); };
       socket.onopen = () => {
