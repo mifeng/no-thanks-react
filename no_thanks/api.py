@@ -28,7 +28,6 @@ def create_game(request):
     Group("socket").send({ "text": '{"event":"new game started","trigger":"fetchGame"}' })
     serializer = GameSerializer(Game.create_new(request.user))
     global players
-    players.append(request.user.username)
     return JsonResponse({'game': serializer.data })
 
 @csrf_exempt
@@ -38,7 +37,6 @@ def join_game(request):
         current_game = Game.objects.get(pk=data['id'])
         res = Game.add_user(current_game, request.user)
         global players
-        players.append(request.user.username)
         return JsonResponse({'game': GameSerializer(res['game']).data })
 
 def fetch_game(request):
