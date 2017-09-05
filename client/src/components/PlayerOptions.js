@@ -17,6 +17,7 @@ class PlayerOptions extends Component {
     const socket = new ReconnectingWebSocket(`${wsScheme}://${window.location.host}/socket`);
     socket.debug = true;
     socket.timeoutInterval = 5400;
+    // const socket = new WebSocket(`ws://${window.location.host}/socket/`);
     socket.onopen = () => {
       const msg = `${this.props.currentUser.username} joined game`;
       socket.send(JSON.stringify({ event: msg }));
