@@ -1,4 +1,4 @@
-# No Thank! - card game
+# No Thanks! - card game
 
 # Setup 🚧
 
